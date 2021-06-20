@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Contract;
 use App\File;
+use App\Mail\SendInvitation;
 use App\Signature;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ContractController extends Controller
 {
@@ -50,6 +52,7 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $contract = DB::table('contracts')->where('file_id', $request->id)->exists();
 
         if( $contract ){ // Si existe el contrato
@@ -131,6 +134,13 @@ class ContractController extends Controller
                     'user_name' => $user_name,
                     'created_at' => now()
                 ]);
+                $receivers = '';
+                DB::table('contract_user')->insert([
+                    'user_id' => Auth::user()->id,
+                    'contract_id' => $contract->id,
+                    'email' => Auth::user()->email,
+                    'created_at' => now()
+                ]);
                 for( $i = 0 ; $i < $request->nmails ; $i++ ){
                     DB::table('contract_user')->insert([
                         'user_id' => $guest_id[$i],
@@ -138,6 +148,7 @@ class ContractController extends Controller
                         'email' => $guest_email[$i],
                         'created_at' => now()
                     ]);
+                    Mail::to($guest_email[$i])->send(new SendInvitation($contract));
                 }
                 return redirect()->route('signatures.presign', $contract->id)->with('message','Se ha creado el contrato!');
             }
@@ -157,12 +168,10 @@ class ContractController extends Controller
 
         if( $contract->signatures->count() == $guests->count() ){
             $ready = true;
-
         }
         else{
             $ready = false;
         }
-
         // dd($contract->signed);
 
         return view('contracts.show', compact('contract', 'guests', 'ready'));
@@ -204,6 +213,7 @@ class ContractController extends Controller
 
     public function confirm(Request $request)
     {
+        // dd($request->all());
         $datos = $request->all();
         $file_id = $datos["file_id"];
         $name = $datos["name"];

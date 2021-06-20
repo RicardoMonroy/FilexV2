@@ -162,7 +162,15 @@
                                         </form> --}}
                                         <embed src="{{ asset('storage') }}/{{ $contract->signed->url }}" type="application/pdf" width="100%" height="600px" />
                                     @else
-                                        <div class="profile-brief">El documento se genera, una vez que todos los particiántes firmen</div>
+                                        <div class="profile-brief">
+                                            El documento se genera, una vez que todos los particiántes firmen, o bien puedes generar el documento (toma en cuenta que una vez generado el documento, se imprime el sello de la NOM-151):
+                                            <form action="{{ route('signature.generate') }}" method="post">
+                                                @csrf
+                                                @method('POST')
+                                                <input type="hidden" name="contractId" value="{{ $contract->id }}">
+                                                <button type="submit" class="btn btn-primary">Generar PDF</button>
+                                            </form>
+                                        </div>
                                     @endif
 
                                     </div>

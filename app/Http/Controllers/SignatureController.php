@@ -176,14 +176,22 @@ class SignatureController extends Controller
 
 
     public function generatePDF(Request $request){
-        $contractId = $request->ContractId;
-        $this->generate($contractId);
+        // dd($request->all());
+        $contract = Contract::find($request->contractId);
+        // dd($contractId->id);
+        $this->generate($contract->id);
+
+        $guests = DB::table('contract_user')->where('contract_id', $contract->id )->get();
+        $ready = true;
+
+
+        return view('contracts.show', compact('contract', 'guests', 'ready'));
     }
 
     public function generate($contractId)
     {
         $contract = Contract::find($contractId);
-
+        // dd($contract);
         $data['title'] = 'Contrato firmado';
         $data['css_files'] = [asset('backend/css/main.css'),];
         $html = '
@@ -217,12 +225,17 @@ class SignatureController extends Controller
                 ';
 
         foreach( $contract->signatures as $signature ) {
+            if ( !isset($signature->user->handwritten->base64) ){
+                $base64 = ''; // poner aquí un sello filex para reemplazar a la firma
+            }else{
+                $base64 = $signature->user->handwritten->base64;
+            }
             $html .= '
             <table>
                     <tbody>
                         <tr>
                             <td><strong>Nombre: </strong>' . $signature->user->name . '</td>
-                            <td><img src="data:image/png;base64, '. $signature->user->handwritten->base64 .'" alt=""></td>
+                            <td><img src="data:image/png;base64, '. $base64 .'" alt=""></td>
                         </tr>
                         <tr>
                             <td><strong>Nombre legal: </strong>' . $signature->legalName . '</td>
