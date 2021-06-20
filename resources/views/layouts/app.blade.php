@@ -152,6 +152,8 @@
         <script src="{{ asset('backend/global/js/Plugin/jquery-placeholder.js') }}"></script>
         <script src="{{ asset('backend/global/js/Plugin/input-group-file.js') }}"></script>
 
+        @stack('js')
+
     <script>
         @if(Session::has('message'))
         toastr.options =

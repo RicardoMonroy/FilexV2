@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,5 +34,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // LandingPage
     Route::resource('sliders', 'SliderController');
+    Route::resource('contact', 'ContactController');
+    Route::resource('about', 'AboutController');
+    Route::resource('document', 'DocumentController');
+    Route::resource('faqs', 'FaqsController');
     // ->middleware('permission:admin.landing');
 });

@@ -31,7 +31,7 @@
         <div class="panel-body container-fluid">
             <div class="row row-lg">
                 <div class="col-lg-12">
-                    <h5>Mis contratos</h5>
+                    <h5>Mis Banners</h5>
                     <table class="table table-hover">
                         <thead class="text-center">
                             <tr>
@@ -63,18 +63,18 @@
                                     <td class="text-center" style="vertical-align:middle;">
                                         <div class="btn-group">
                                             <div class="col-md-4">
-                                                <form action="{{ route('sliders.store') }}" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
+                                                <a href="{{ route('sliders.edit', $slider->id) }}" class="btn btn-icon btn-info btn-round waves-effect waves-light waves-round"><i class="icon md-edit" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <form action="{{ route('sliders.destroy',$slider->id) }}" method="POST">
                                                     @csrf
-                                                    <input type="hidden" name="id" value="{{ $slider->id }}">
-                                                    <input type="hidden" name="type" value="individual">
-                                                    <button type="submit"  class="btn btn-icon btn-info btn-round waves-effect waves-light waves-round">
-                                                        <i class="icon md-edit" aria-hidden="true"></i>
+                                                    @method('DELETE')
+                                                    <button type="submit"  class="btn btn-icon btn-danger btn-round waves-effect waves-light waves-round">
+                                                        <i class="icon md-delete" aria-hidden="true"></i>
                                                     </button>
                                                 </form>
                                             </div>
-                                            <div class="col-md-4">
-                                                <a type="button" class="btn btn-icon btn-success btn-round waves-effect waves-light waves-round"><i class="icon md-share" aria-hidden="true"></i></a>
-                                            </div>
+
                                         </div>
                                     </td>
                                 </tr>

@@ -308,7 +308,7 @@
 
             <div class="col-12 col-lg-6 m-ipad wow fadeInRight" data-wow-delay="300ms">
                 <div class="ml-md-4 pl-md-2 font-weight-200 text-grey font-18">
-                    <p>{{ $about->paragraph }}</p>
+                    <p>{!! $about->paragraph !!}</p>
                     {{-- <p>Curabitur mollis bibendum luctus. Duis suscipit vitae dui sed suscipit. Vestibulum auctor nunc vitae diam eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus. </p> --}}
                 </div>
             </div>

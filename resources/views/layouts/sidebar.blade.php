@@ -37,7 +37,9 @@
                                         $activePage == 'sliders' ||
                                         $activePage == 'about' ||
                                         $activePage == 'documents' ||
-                                        $activePage == 'contact' ? ' active' : ''
+                                        $activePage == 'contact' ||
+                                        $activePage == 'about' ||
+                                        $activePage == 'faqs' ? ' active' : ''
                                         }}">
                         <a href="javascript:void(0)">
                             <i class="site-menu-icon md-google-pages" aria-hidden="true"></i>
@@ -53,21 +55,21 @@
                         </ul>
                         <ul class="site-menu-sub">
                             <li class="site-menu-item">
-                                <a class="animsition-link" href="#" class="{{ $activePage == 'sliders' ? ' active' : '' }}">
+                                <a class="animsition-link" href="{{ route('contact.edit', 1) }}" class="{{ $activePage == 'contact' ? ' active' : '' }}">
                                     <span class="site-menu-title">Contacto</span>
                                 </a>
                             </li>
                         </ul>
                         <ul class="site-menu-sub">
                             <li class="site-menu-item">
-                                <a class="animsition-link" href="#" class="{{ $activePage == 'sliders' ? ' active' : '' }}">
+                                <a class="animsition-link" href="{{ route('about.edit', 1) }}" class="{{ $activePage == 'about' ? ' active' : '' }}">
                                     <span class="site-menu-title">Nosotros</span>
                                 </a>
                             </li>
                         </ul>
                         <ul class="site-menu-sub">
                             <li class="site-menu-item">
-                                <a class="animsition-link" href="#" class="{{ $activePage == 'sliders' ? ' active' : '' }}">
+                                <a class="animsition-link" href="{{ route('faqs.index') }}" class="{{ $activePage == 'faqs' ? ' active' : '' }}">
                                     <span class="site-menu-title">FAQ</span>
                                 </a>
                             </li>

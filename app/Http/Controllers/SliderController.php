@@ -31,12 +31,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
-        $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('signer_two_mail', Auth::user()->email)
-            ->get();
-
-        return view('landing.sliders.create', compact('files', 'contracts'));
+        return view('landing.sliders.create');
     }
 
     /**
@@ -47,11 +42,6 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        // dd('store');
-        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
-        $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('signer_two_mail', Auth::user()->email)
-            ->get();
         $slider = new Slider;
 
         $file = $request->file('banner');
@@ -66,7 +56,7 @@ class SliderController extends Controller
             ]);
         }
 
-        return redirect()->route('sliders.index', compact('files', 'contracts'))->with('message','Se añadió un nuevo slide');
+        return redirect()->route('sliders.index')->with('message','Se añadió un nuevo slide');
     }
 
     /**
@@ -77,13 +67,9 @@ class SliderController extends Controller
      */
     public function show($id)
     {
-        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
-        $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('signer_two_mail', Auth::user()->email)
-            ->get();
         $slider = Slider::find($id);
 
-        return view('landing.sliders.show', compact('files', 'slider', 'contracts'));
+        return view('landing.sliders.show', compact('slider'));
     }
 
     /**
@@ -94,13 +80,9 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
-        $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('signer_two_mail', Auth::user()->email)
-            ->get();
         $slider = Slider::find($id);
 
-        return view('landing.sliders.edit', compact('files', 'slider', 'contracts'));
+        return view('landing.sliders.edit', compact('slider'));
     }
 
     /**
