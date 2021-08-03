@@ -152,6 +152,13 @@
                                         <small>Autor: {{ $contract->file->user->name }}</small>
                                     </h5>
                                     <small>A continuación tu documento:</small>
+                                        @php
+                                            // $arfiloc = explode('/', $file->file);
+                                            // $foldrname = $arfiloc[0];
+                                            // $file_name = $arfiloc[1];
+                                        @endphp
+
+                                        <a href="{{ route('pdfeditor', [ 'id' => $contract->id ]) }}" type="button" class="btn btn-icon btn-danger btn-round waves-effect waves-light waves-round"><i class="icon md-file-plus" aria-hidden="true"></i></a>
 
                                     @if ( $ready )
                                         {{-- <div class="profile-brief">Ya firmaron todos </div>

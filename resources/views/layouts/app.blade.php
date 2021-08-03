@@ -51,6 +51,7 @@
     <![endif]-->
 
     <!-- Scripts -->
+
     <script src="{{ asset('backend/global/vendor/breakpoints/breakpoints.js') }}"></script>
     <script>
       Breakpoints();

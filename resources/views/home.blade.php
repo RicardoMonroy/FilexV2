@@ -5,8 +5,8 @@
     <h1 class="page-title">Dashboard</h1>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-        {{-- <li class="breadcrumb-item"><a href="javascript:void(0)">Forms</a></li>
-        <li class="breadcrumb-item active">File Uploads</li> --}}
+       {{-- <li class="breadcrumb-item"><a href="javascript:void(0)">Forms</a></li>
+        <li class="breadcrumb-item active">File Uploads</li>  --}}
     </ol>
     <div class="page-header-actions">
         {{-- <a type="button" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Refresh">
@@ -131,6 +131,13 @@
                     </div>
                 </div>
         </div>
+        <div class="panel-footer container-fluid">
+            <a href="{{ route('pdf', ['method'=>'1-Ricardo-Monroy', 'method1'=>'signed.pdf']) }}">go to PDF Editor</a>
+
+            {{-- <p>{{ asset('storage') }}/{{ $lastFile->file }}</p>
+            <iframe width="100%" height="500" src="{{ asset('storage') }}/{{ $lastFile->file }}" frameborder="0"></iframe> --}}
+        </div>
+
     </div>
     <!-- End Primer Panel -->
     <!-- Primer Panel -->
@@ -196,8 +203,19 @@
                                             {{-- <a type="button" href="{{ route('contracts.store', $file) }}" class="btn btn-icon btn-info btn-round waves-effect waves-light waves-round"><i class="icon md-edit" aria-hidden="true"></i></a> --}}
                                         </div>
                                         <div class="col-md-4">
+                                             @php
+                                               $arfiloc = explode('/', $file->file);
+                                               $foldrname = $arfiloc[0];
+                                               $file_name = $arfiloc[1];
+                                             @endphp
+
+                                            <a href="{{ route('pdf', ['method'=>$foldrname, 'method1'=>$file_name ]) }}" type="button" class="btn btn-icon btn-danger btn-round waves-effect waves-light waves-round"><i class="icon md-file-plus" aria-hidden="true"></i></a>
+                                        </div>
+
+                                        <div class="col-md-4">
                                             <a href="{{ route('contracts.create') }}" type="button" class="btn btn-icon btn-success btn-round waves-effect waves-light waves-round"><i class="icon md-share" aria-hidden="true"></i></a>
                                         </div>
+
                                     </div>
                                 </td>
                             </tr>

@@ -16,10 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'LandingController@index')->name('welcome');
 
+
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('pdf/{method}/{method1}','PdfController@openfile')->name('pdf');
+    Route::get('pdf/{id}','PdfController@contract')->name('pdfeditor');
 
     Route::resource('files', 'FileController');
 
