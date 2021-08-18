@@ -34,13 +34,24 @@ class PdfController extends Controller
         $list['directory'] = $foldrname;
         $list['file_name'] = $file_name;
 
-        // dd($list, $contract->file);
-        $firmante = $contract->signatures;
-        $png = $contract->user->handwritten->path;
-        // dd($firmante, $png);
+        $names = [];
+        $ids = [];
+        $handwrittenPng = [];
+        $handwrittenBase64 = [];
+        foreach ($contract->users as &$user) {
+            array_push($names, $user->name);
+            array_push($ids, $user->id);
+            array_push($handwrittenPng, $user->handwritten->path);
+            array_push($handwrittenBase64, $user->handwritten->base64);
+        }
+        $signatures = [];
+        foreach ($contract->signatures as &$signature) {
+            array_push($signatures, $signature->string);
+        }
+
+        // dd($names, $ids, $signatures, $handwrittenPng, $handwrittenBase64);
 
 
-
-        return view('pdfeditor.index', compact('list', 'contract', 'firmante', 'png'));
+        return view('pdfeditor.index', compact('list', 'contract', 'names', 'ids', 'signatures', 'handwrittenPng', 'handwrittenBase64'));
     }
 }

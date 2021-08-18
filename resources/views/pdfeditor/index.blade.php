@@ -108,19 +108,42 @@
             <div class="pdf-modal-body p-0">
                 <div class="pdf-modal-row">
                     <div class="col-md-12">
-                        {{-- <p>firma</p> --}}
                         <canvas id="canvasSignature" width="500" height="300" onmouseover="PDFCreateSignature_InitEventCanvas(event)"></canvas>
                     </div>
                 </div>
             </div>
             <div class="pdf-modal-footer">
-                <p>firma</p>
                 <button type="button" id="btnCanvasSignatureClear" class="pdf-btn mr-2" onclick="PDFClearSignature()">Limpiar</button>
                 <button type="button" id="btnCanvasSignatureSave" class="pdf-btn mr-2" onclick="PDFGenarateSmallDialogSignature.apply(this, arguments)">Guardar</button>
                 <button type="button" id="btnCanvasSignatureClose" class="pdf-btn pdf-btn-default" onclick="CloseSignatureModal(this)">Cerrar</button>
             </div>
         </div>
     </div>
+
+    <!-- Modals Firmantes -->
+    @foreach ($ids as $id)
+        <div id="firmante{{ $id }}" class="pdf-modal">
+            <div class="pdf-modal-content pdf-modal-dialog" style="max-width:500px;">
+                <div class="pdf-modal-header">
+                    <span class="pdf-modal-close" onclick="CloseSignatureModal(this)">×</span>
+                    <h4>Crear firma</h4>
+                </div>
+                <div class="pdf-modal-body p-0">
+                    <div class="pdf-modal-row">
+                        <div class="col-md-12">
+                            {{-- <canvas id="canvasSignature" width="500" height="300" onmouseover="PDFCreateSignature_InitEventCanvas(event)"></canvas> --}}
+                        </div>
+                    </div>
+                </div>
+                <div class="pdf-modal-footer">
+                    <button type="button" id="btnCanvasSignatureClear" class="pdf-btn mr-2" onclick="PDFClearSignature()">Limpiar</button>
+                    <button type="button" id="btnCanvasSignatureSave" class="pdf-btn mr-2" onclick="PDFGenarateSmallDialogSignature.apply(this, arguments)">Guardar</button>
+                    <button type="button" id="btnCanvasSignatureClose" class="pdf-btn pdf-btn-default" onclick="CloseSignatureModal(this)">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
 
     <script>
         var smartPlugin;
@@ -164,8 +187,14 @@
     <script>
         var documentName = "";
         var full_url = "";
-        var firmante = "{{ $firmante }}";
-        var img = "{{ $png }}";
+
+        var firmantes = ["{{ isset($names[0]) ? $names[0] : '' }}", "{{ isset($names[1]) ? $names[1] : '' }}", "{{ isset($names[2]) ? $names[2] : '' }}", "{{ isset($names[3]) ? $names[3] : '' }}", "{{ isset($names[4]) ? $names[4] : '' }}", "{{ isset($names[5]) ? $names[5] : '' }}"];
+        var nombres = "";
+        firmantes.forEach(function (element, index) {
+            nombres = nombres + ' <a class="dropdown-item" href="#" onclick="#firmante'+index+'"> ' + element  + ' </a> ';
+        });
+
+
         (function (root, factory) {
             if (typeof define === 'function' && define.amd) {
                 // AMD
@@ -1445,10 +1474,11 @@
                 ' <a class="dropdown-item" href="javascript:void(0)" onclick="PDFCreateSignature(event)">Crear tu firma...</a>' +
                 ' <a class="dropdown-item" href="#" id="sigUserName">Firmantes: </a> ' +
                 ' <div class="dropdown-divider"></div>' +
-                ' <a class="dropdown-item" href="#" onclick="PDFCreateSignature(event)">' + firmante + '</a> ' +
-                ' <div class="dropdown-divider"></div>' +
-                ' <span class="ml-1">Date Stamp</span>' +
-                ' <a class="dropdown-item" href="#"><span class="text-datetime-now">6/21/2019</span></a>' +
+                // ' <a class="dropdown-item" href="#" onclick="PDFCreateSignature(event)">' + firmantes + '</a> ' +
+                nombres + // todos los nombres de los firmantes
+                // ' <div class="dropdown-divider"></div>' +
+                // ' <span class="ml-1">Date Stamp</span>' +
+                // ' <a class="dropdown-item" href="#"><span class="text-datetime-now">6/21/2019</span></a>' +
                 ' </div>' +
                 ' </div>' +
 
@@ -2001,7 +2031,7 @@
         //Signature
         function PDFCreateSignature(e) {
             var count = $(".pdf-dialog-small.pdf-signature").length;
-            if (count > 0) alert("Signature is existed");
+            if (count > 0) alert("La firma ya fué insertada");
             else
                 $("#PDFSignatureModal").modal({ backdrop: 'static', keyboard: false }).on('shown.bs.modal', function (e) {
 

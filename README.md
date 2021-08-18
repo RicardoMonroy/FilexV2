@@ -26,9 +26,9 @@ composer install
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=FilexV2
-DB_USERNAME=admin
-DB_PASSWORD=admin
+DB_DATABASE={db_name}
+DB_USERNAME={tu_user}
+DB_PASSWORD={pass_de_tu_user}
 ```
 
 Instalar dependencias de Node
@@ -42,7 +42,14 @@ Ejecutar migraciones y poblar la base de datos
 ```
 php artisan migrate --seed
 ```
-
+Generar enlace simbíolico para acceder al Storage
+```
+php artisan storage:link
+```
+Ejecutar servidor
+```
+php artisan serve
+```
 
 ## License
 

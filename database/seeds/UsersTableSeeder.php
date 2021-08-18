@@ -22,17 +22,9 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Erick Estrada Ojo de Agua',
-            'email' => 'corporativo@tooring.com.mx',
-            'password' => Hash::make('Tooring@2021'),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        DB::table('users')->insert([
             'name' => 'Administrator',
             'email' => 'admin@filex.com.mx',
-            'password' => Hash::make('Filex@21'),
+            'password' => Hash::make('12345678'),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -40,7 +32,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Basic Plan',
             'email' => 'basic@filex.com.mx',
-            'password' => Hash::make('Filex@21'),
+            'password' => Hash::make('12345678'),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -48,7 +40,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Premium Plan',
             'email' => 'premium@filex.com.mx',
-            'password' => Hash::make('Filex@21'),
+            'password' => Hash::make('12345678'),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
